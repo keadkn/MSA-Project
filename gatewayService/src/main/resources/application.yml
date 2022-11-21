@@ -1,0 +1,32 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: user-serivce
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+        - id: catalog-serivce
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-service/**
+        - id: order-serivce
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/config-service/**
+        - id: config-serivce
+          uri: lb://CONFIG-SERVICE
+          predicates:
+            - Path=/config-service/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
